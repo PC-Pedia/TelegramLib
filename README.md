@@ -1,8 +1,8 @@
 # TelegramLib
 Easy to use library to interact with [Telegram API](https://core.telegram.org/api#telegram-api)
 
-**TelegramLib** - main library. It contains *TelegramController* which allows to login, send and get files from chats/channels/groups with understandable functions.
-**TelegramCmd** - small console client to show all user login an send file steps. 
+- **TelegramLib** - main library. It contains *TelegramController* which allows to login, send and get files from chats/channels/groups with understandable functions.
+- **TelegramCmd** - small console client to show all user login an send file steps. 
 
 To use Telegam Api you also need to obtain your [AppId and ApiHash](https://core.telegram.org/api/obtaining_api_id#obtaining-api-id) and set it in *[TelegramCmd/config/TelegramConfig.json](https://github.com/DmitryJDS/TelegramLib/blob/main/Net5/TelegramLib/TelegramCmd/config/TelegramConfig.json)*
 **Remember** - It is forbidden to pass this values to third parties.
