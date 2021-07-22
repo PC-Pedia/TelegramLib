@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -26,6 +25,7 @@ namespace TelegramLib
         public TelegramController(TelegramClientSettings settings)
         {
             _client = new TdClient();
+            _client.SetLogVerbosityLevelAsync(0);
             Settings = settings;
             ClientStatus = ClientStatus.NotStarted;
             UserLoginStatus = UserLoginStatus.Unauthorized;
@@ -157,21 +157,17 @@ namespace TelegramLib
         /// <param name="offsetId"></param>
         /// <param name="limit"></param>
         /// <returns></returns>
-        public async IAsyncEnumerable<TdApi.Chat> GetChats(long offsetOrder = long.MaxValue, long offsetId = 0, int limit = 1000)
+        public async Task<List<TdApi.Chat>> GetChats(long offsetOrder = long.MaxValue, long offsetId = 0, int limit = 1000)
         {
             var chats = await _client.ExecuteAsync(new TdApi.GetChats { OffsetOrder = offsetOrder, Limit = limit, OffsetChatId = offsetId });
-            foreach (var chat in chats.ChatIds)
-            {
-                Debug.WriteLine(chat);
-            }
+            List<Chat> allChats = new List<Chat>();
             foreach (var chatId in chats.ChatIds)
             {
                 var chat = await _client.ExecuteAsync(new TdApi.GetChat { ChatId = chatId });
                 if (chat.Type is TdApi.ChatType.ChatTypeSupergroup || chat.Type is TdApi.ChatType.ChatTypeBasicGroup || chat.Type is TdApi.ChatType.ChatTypePrivate)
-                {
-                    yield return chat;
-                }
+                    allChats.Add(chat);
             }
+            return allChats;
         }
 
         /// <summary>
