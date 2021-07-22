@@ -8,5 +8,5 @@ To use Telegam Api you also need to obtain your [AppId and ApiHash](https://core
 **Remember** - It is forbidden to pass this values to third parties.
 
 **Repo folders**
- - Net5 - primary framework , NuGet: [TDLib](https://www.nuget.org/packages/TDLib/1.6.0), [TDLib.Api](https://www.nuget.org/packages/TDLib.Api/1.6.0), [tdlib.native](https://github.com/ForNeVeR/tdlib.native).
- - NetFramework4.8 - working, but can be unstable. NuGet: [TDLib](https://www.nuget.org/packages/TDLib/1.6.0), [TDLib.Api](https://www.nuget.org/packages/TDLib.Api/1.6.0), also [tdlib.native](https://github.com/ForNeVeR/tdlib.native) dll files included.
+ - Net5 - primary framework , NuGet: [TDLib 1.6.0](https://www.nuget.org/packages/TDLib/1.6.0), [TDLib.Api 1.6.0](https://www.nuget.org/packages/TDLib.Api/1.6.0), [tdlib.native 1.6.0](https://github.com/ForNeVeR/tdlib.native).
+ - NetFramework4.8 - working, but can be unstable. NuGet: [TDLib 1.6.0](https://www.nuget.org/packages/TDLib/1.6.0), [TDLib.Api 1.6.0](https://www.nuget.org/packages/TDLib.Api/1.6.0), also [tdlib.native 1.6.0](https://github.com/ForNeVeR/tdlib.native) dll files included.
