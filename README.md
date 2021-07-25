@@ -1,6 +1,6 @@
 # TelegramLib
 Easy to use library to interact with [Telegram API](https://core.telegram.org/api#telegram-api)
-
+**TelegramClientService** - telegram client api service.
 - **TelegramLib** - main library. It contains *TelegramController* which allows to login, send and get files from chats/channels/groups with understandable functions.
 - **TelegramCmd** - small console client to show all user login and file send steps. 
 
