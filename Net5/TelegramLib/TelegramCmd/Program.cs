@@ -13,47 +13,72 @@ namespace TelegramCmd
         public static TelegramController tgClient;
         static async Task Main(string[] args)
         {
-            //https://core.telegram.org/api/obtaining_api_id#obtaining-api-id - Obtaining api_id & api_hash
-            tgClient = new TelegramController(new TelegramClientSettings("config/TelegramConfig.json"));
+            //https://core.telegram.org/api/obtaining_api_id#obtaining-api-id - Obtaining ApiId & ApiHash
+
+            Console.WriteLine("Enter Telegram ApiId:");
+            int appID = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("Enter Telegram ApiHash:");
+            string apiHash = Console.ReadLine();
+
+            tgClient = new TelegramController(new TelegramClientSettings { ApiId = appID, ApiHash = apiHash });
             tgClient.Run();
             Thread.Sleep(TimeSpan.FromSeconds(2));
 
             if (tgClient.UserLoginStatus != TelegramEnums.UserLoginStatus.Logined)
             {
                 if (tgClient.UserLoginStatus == TelegramEnums.UserLoginStatus.LoginNeeded)
-                    await tgClient.RequestCode("+1234567890"); 
+                {
+                    Console.WriteLine("Enter your telegram phone number (+123456789):");
+                    string phone = Console.ReadLine();
+                    await tgClient.RequestCode(phone);
+                }
 
                 Thread.Sleep(TimeSpan.FromSeconds(2));
                 if (tgClient.UserLoginStatus == TelegramEnums.UserLoginStatus.WaitForActivationCode)
-                    await tgClient.SendCode("123456");
+                {
+                    Console.WriteLine("Enter confirm code:");
+                    string code = Console.ReadLine();
+                    await tgClient.SendCode(code);
+                }
 
                 Thread.Sleep(TimeSpan.FromSeconds(2));
                 if (tgClient.UserLoginStatus == TelegramEnums.UserLoginStatus.WaitForPassword)
-                    await tgClient.SendPassword("123qwe");
+                {
+                    Console.WriteLine("Enter password:");
+                    string pass = Console.ReadLine();
+                    await tgClient.SendPassword(pass);
+                }
 
                 Thread.Sleep(TimeSpan.FromSeconds(2));
                 if (tgClient.UserLoginStatus == TelegramEnums.UserLoginStatus.Logined)
-                    Console.WriteLine("logined!");
+                    Console.WriteLine("Logined!");
             }
 
             // get all chats info
-            var allChats = new List<TdApi.Chat>();
-            await foreach (var item in tgClient.GetChats())
-                allChats.Add(item);
+            var allChats = await tgClient.GetChats();
+            Console.WriteLine($"Chats count: {allChats.Count}");
+            foreach (var c in allChats)
+                Console.WriteLine(c.Title);
 
             // chat/channel/group to save file.
-            var meChat = allChats.Where(c => c.Title == "ChatName").FirstOrDefault();
+            Console.WriteLine("Enter chat name to send file:");
+            string name = Console.ReadLine();
 
+            var meChat = allChats.Where(c => c.Title == name).FirstOrDefault();
+
+            if (meChat == null)
+                Console.WriteLine("chat not found!");
             // upload local file to saved messages
-            var mesResult = tgClient.SendLocalFileToChat(meChat.Id, "sample/image.png", "imgae caption id123");
+            var mesResult = tgClient.SendLocalFileToChatAsync(meChat.Id, "sample/image.png", "imgae caption id123");
+            Console.WriteLine("File sended!");
 
             //you can search message in chat by filename or by caption text;
             var fileMessage = await tgClient.SearchMessage(meChat.Id, "imgae caption id123");
 
             //download file attched to message
             var fileInfo = await tgClient.DownloadMessageFile(fileMessage);
-            string localPath = fileInfo.Local.Path;
-
+            Console.WriteLine($"File received: {fileInfo.Local.Path}");
         }
     }
 }
