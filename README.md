@@ -9,4 +9,3 @@ To use Telegam Api you also need to obtain your [AppId and ApiHash](https://core
 
 **Repo folders**
  - Net5 - primary framework , NuGet: [TDLib 1.6.0](https://www.nuget.org/packages/TDLib/1.6.0), [TDLib.Api 1.6.0](https://www.nuget.org/packages/TDLib.Api/1.6.0), [tdlib.native 1.6.0](https://github.com/ForNeVeR/tdlib.native/releases/tag/v1.6.0).
- - NetFramework4.8 - working, but can be unstable. NuGet: [TDLib 1.6.0](https://www.nuget.org/packages/TDLib/1.6.0), [TDLib.Api 1.6.0](https://www.nuget.org/packages/TDLib.Api/1.6.0), also [tdlib.native 1.6.0](https://github.com/ForNeVeR/tdlib.native/releases/tag/v1.6.0) dll files included.
